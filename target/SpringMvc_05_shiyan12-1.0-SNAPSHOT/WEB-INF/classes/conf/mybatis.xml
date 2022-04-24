@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+    <!--    设置别名-->
+    <typeAliases>
+        <!--        name 实体所在的全限定包名-->
+        <package name="com.cq.pojo"/>
+    </typeAliases>
+    <!--    sql mapper(sql映射文件)的位置-->
+    <mappers>
+        <!--
+        name:是包名 这个包中的所有mapper ,xml都会一次性加载
+        使用package的要求是 dao接口和mapper文件必须在同一级的文件中
+-->
+<!--        <package name="mapper文件的权限定名称（包名）"/>-->
+        <mapper resource="mapper/UserDao.xml"/>
+        <mapper resource="mapper/PurchaseDao.xml"/>
+<!--        <mapper resource="mapper/NameDao.xml"/>-->
+    </mappers>
+</configuration>

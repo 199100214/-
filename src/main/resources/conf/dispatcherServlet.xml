@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!--        springMvc的配置文件 放置相关的controller对象-->
+    <context:component-scan base-package="com.cq.controller"/>
+    <!--    视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/view/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    <!--    jason，Ajax，注解驱动，静态资源-->
+    <mvc:annotation-driven/>
+    <!-- 让Spring MVC不处理静态资源 -->
+    <mvc:default-servlet-handler />
+    <!--配置静态资源的访问映射，此配置中的文件，将不被前端控制器拦截 -->
+<!--    <mvc:resources location="/css/" mapping="/css/**" />&lt;!&ndash;css&ndash;&gt;-->
+<!--    <mvc:resources location="/images/" mapping="/img/**" />&lt;!&ndash;img&ndash;&gt;-->
+<!--    <mvc:resources location="/js/" mapping="/js/**" />&lt;!&ndash;js&ndash;&gt;-->
+
+        <!--    声明拦截器-->
+        <mvc:interceptors>
+            <mvc:interceptor>
+                <mvc:mapping path="/**"/>
+<!--                <mvc:exclude-mapping path="/**/view/login.jsp"/>&lt;!&ndash;配置不需要拦截的页面&ndash;&gt;-->
+                <mvc:exclude-mapping path="/login.do"/>
+                <mvc:exclude-mapping path="/login*"/>
+                <mvc:exclude-mapping path="/images/**"/>
+                <mvc:exclude-mapping path="/css/**"/>
+                <mvc:exclude-mapping path="/js/**"/>
+                <bean class="com.cq.handler.MyInterceptor"/>
+            </mvc:interceptor>
+        </mvc:interceptors>
+
+</beans>

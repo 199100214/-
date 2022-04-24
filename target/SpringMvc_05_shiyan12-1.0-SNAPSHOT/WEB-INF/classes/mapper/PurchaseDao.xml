@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cq.dao.PurchaseDao">
+    <!--select 表示查询
+ id:表示执行sql语句的唯一标识符 mybatis会使用这个id来找到要执行的sql语句
+ resultType:表示结果类型，表示sql语句执行之后的返回的java对象的类型
+ 值显示的类型的全限定名称-->
+
+
+    <!-- //采购单新增
+    int purchaseAdd(Purchase purchase);
+    //采购单修改
+    int purchaseUpdate(Purchase purchase);
+    //删除操作
+    int purchaseDelete(String id);
+    //查看详情
+    Purchase purchaseDetail(String id);
+    //查看列表
+    List<Purchase> purchaseList();-->
+<!--   private String id;//主键 uuid生成
+    private String goods_id;//商品的编号也是uuid
+    private int amount;//数量
+    private double price;//价格
+    private Date purchase_time;//进货时间
+    private String supplier_id;//供应商的编号 首字母缩写
+    private String purchase_user_id;//采购员的编号 首字母加编号-->
+    <select id="purchaseList" resultType="purchase">
+        SELECT
+            *
+        FROM
+            purchase
+        ORDER BY
+            purchase_time DESC
+        limit 0,10
+    </select>
+    <select id="purchaseDetail" parameterType="string" resultType="purchase">
+        SELECT
+            *
+        FROM
+            purchase
+        WHERE
+            id = #{id}
+    </select>
+    <update id="purchaseUpdate">
+        UPDATE purchase
+        SET
+            goods_id = #{id},
+            amount = #{amount},
+            price = #{price},
+            purchase_time = #{purchase_time},
+            supplier_id = #{supplier_id},
+            purchase_user_id = #{purchase_user_id}
+        where
+            id = #{id}
+    </update>
+    <insert id="purchaseAdd" parameterType="purchase">
+        INSERT INTO purchase (
+            id,
+            goods_id,
+            amount,
+            price,
+            purchase_time,
+            supplier_id,
+            purchase_user_id
+        )
+        VALUES
+        (
+            #{id},
+            #{goods_id},
+            #{amount},
+            #{price},
+            #{purchase_time},
+            #{supplier_id},
+            #{purchase_user_id}
+        )
+    </insert>
+    <delete id="purchaseDelete" parameterType="String">
+        DELETE
+        FROM
+            purchase
+        WHERE
+            id = #{id}
+    </delete>
+    <select id="purchaseListSelect" resultType="purchase" parameterType="java.util.Map">
+        SELECT
+            *
+        FROM
+            purchase
+        <where>
+            <if test="purchase.id !='' ">
+                and id = #{purchase.id}
+            </if>
+            <if test="purchase.goods_id !=''">
+                and goods_id = #{purchase.goods_id}
+            </if>
+            <if test="purchase.supplier_id !=''">
+                and supplier_id = #{purchase.supplier_id}
+            </if>
+            <if test="purchase.purchase_user_id !=''">
+                and purchase_user_id = #{purchase.purchase_user_id}
+            </if>
+            <if test="purchase.purchase_time !=''">
+                and purchase_time &gt;= #{purchase.purchase_time}
+            </if>
+            <if test="purchase.purchase_time_end !=''">
+                and purchase_time_end &lt;= #{purchase.purchase_time_end}
+            </if>
+        </where>
+            ORDER BY
+            purchase_time DESC
+            limit #{queryParameter.offSet},#{queryParameter.pageSize}
+    </select>
+<!-- "id":id,
+                "goods_id":goods_id,
+                "supplier_id":supplier_id,
+                "purchase_user_id":purchase_user_id,
+                "purchase_time":purchase_time,
+                "purchase_time_end":purchase_time_end-->
+
+</mapper>

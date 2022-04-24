@@ -1,0 +1,49 @@
+@CHARSET "UTF-8";
+.dataGrid
+{
+    border: 1px solid #157fa8;
+    width:100%;
+}
+
+.dataGrid th
+{
+    color: #007ea2;
+    background-color: #caeefe;
+    border-bottom:1px solid #157fa8;
+    height: 30px;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.dataGrid tr:hover
+{
+    background-color: #f0f0f0;
+}
+.dataGrid td
+{
+    border-bottom: 1px solid #D4D0C8;
+    height: 25px;
+    text-align: center;
+    padding: 0 5px 0 5px;
+    font-size: 9pt;
+}
+
+.btn2 {
+    background-color: #157fa8;
+    color: #ffffff;
+    height: 28px;
+    width: 60px;
+    border: 0px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    cursor: pointer;
+}
+
+.btn2:hover {
+    background-color: #f5b613;
+}
+
+.title{
+    text-align: center;
+    font-weight: bold;
+}

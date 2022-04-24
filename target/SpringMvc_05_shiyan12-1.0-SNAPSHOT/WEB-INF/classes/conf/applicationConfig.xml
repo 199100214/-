@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation=" http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context.xsd
+         http://www.springframework.org/schema/tx
+         http://www.springframework.org/schema/tx/spring-tx.xsd
+         http://www.springframework.org/schema/aop
+         http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--!!!!!!!!!!!!!!!!!!!!!!!!!!! xmlns:aop="http://www.springframework.org/schema/aop"
+           xmlns:tx="http://www.springframework.org/schema/tx"  ！！！！！！！！！！！！这两个配置文件的顺序不能反-->
+    <!--        声明到dao,service等工具类的声明对象 -->
+    <!--声明数据源-->
+    <context:property-placeholder location="classpath:conf/jdbc.properties"/>
+    <!--    声明数据源DateSource 作用连接数据库-->
+    <bean id="myDateSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <!--        给set注入提供Druid提供连接数据的信息 ?characterEncoding=utf-8-->
+        <property name="url" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maxActive" value="20"/>
+
+    </bean>
+    <!--    sqlSessionFactoryBean目的是创建SqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="myDateSource"/>
+        <property name="configLocation" value="classpath:conf/mybatis.xml"/>
+    </bean>
+    <!--    声明一个mybatis的扫描器，创建dao的对象-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="basePackage" value="com.cq.dao"/>
+    </bean>
+    <!--    增加事务管理-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="myDateSource"/>
+    </bean>
+    <!--    编写通知，对事物的增强-->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager"/>
+<!--    service扫包-->
+    <context:component-scan base-package="com.cq.service"/>
+</beans>

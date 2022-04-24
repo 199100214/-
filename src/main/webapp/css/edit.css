@@ -1,0 +1,71 @@
+@CHARSET "UTF-8";
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.btn2 {
+    background-color: #157fa8;
+    color: #ffffff;
+    height: 28px;
+    width: 60px;
+    border: 0px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    cursor: pointer;
+}
+
+.btn2:hover {
+    background-color: #f5b613;
+}
+
+.toolbar {
+    margin-top: 5px;
+    text-align: center;
+}
+
+input, select, textarea {
+    outline: none;
+}
+input[type=text]{
+    height:25px;
+    width:267px
+}
+input[type=password]{
+    height:25px;
+    width:267px
+}
+
+.editor-label {
+    margin-top: 5px;
+    float: left;
+    width: 140px;
+}
+
+.editor-field {
+    margin-top: 5px;
+}
+
+.editor-label-width {
+    margin-top: 5px;
+    float: left;
+    width: 150px;
+}
+
+fieldset {
+    display: block;
+    border: 1px #ccc solid;
+    padding: 20px;
+    margin: 5px 10px;
+}
+
+fieldset legend {
+    display: block;
+    font-size: 14px;
+}
+
+select {
+    border: solid 1px #BDBDBD;
+    width: 269px;
+}
