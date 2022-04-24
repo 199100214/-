@@ -20,6 +20,7 @@
 <!--        <package name="mapper文件的权限定名称（包名）"/>-->
         <mapper resource="mapper/UserDao.xml"/>
         <mapper resource="mapper/PurchaseDao.xml"/>
+        <mapper resource="mapper/SupplierDao.xml"/>
 <!--        <mapper resource="mapper/NameDao.xml"/>-->
     </mappers>
 </configuration>

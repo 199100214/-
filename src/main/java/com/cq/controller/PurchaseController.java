@@ -1,6 +1,7 @@
 package com.cq.controller;
 
 
+import com.alibaba.druid.sql.visitor.functions.Char;
 import com.cq.pojo.Purchase;
 import com.cq.pojo.QueryParameter;
 import com.cq.service.PurchaseService;
@@ -54,7 +55,11 @@ public class PurchaseController {
         purchase.setSupplier_id(request.getParameter("supplier_id"));
         purchase.setPurchase_user_id(request.getParameter("purchase_user_id"));
         logger.debug(purchase.toString());
-        String id = UUIDUtil.getUUID();
+        String uuid = UUIDUtil.getUUID();
+        String sub = uuid.substring(0,6);
+        //空格替换成- ：替换成-
+        String time = (purchase.getPurchase_time().replace(" ","-")).replace(":","-");
+        String id = time+sub;
         purchase.setId(id);
         logger.debug(purchase.toString());
         int num =purchaseService.purchaseAdd(purchase);
